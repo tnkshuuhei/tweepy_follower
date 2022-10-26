@@ -11,30 +11,24 @@ auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
 auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 api = tweepy.API(auth,wait_on_rate_limit = True)
 
-#user = input("「@ユーザーID」を入力してください：")
-
 followerIDs = []
 for followerID in tweepy.Cursor(api.get_follower_ids, id="@以降のユーザーIDを入力").items():
     followerIDs.append(followerID)
 
-#print(len(followerIDs))
-#count = 0
 followerDatas = []
 for followerID in followerIDs:
     followerData = {}
     data = api.get_user(user_id=followerID)
     followerData["Name"] = data.name
-    followerData["ID"] = followerID
+    followerData["ID"] = data.screen_name
     followerData["Follow"] = data.friends_count
     followerData["Follower"] = data.followers_count
     followerData["Description"] = data.description
     followerData["TweetCount"] = data.statuses_count
     followerDatas.append(followerData)
-    #count +=1
-    #print(count)
 
 import pandas as pd
-pd.set_option("display.max_rows", 1000)
+pd.set_option("display.max_rows", None)
 df = pd.DataFrame(followerDatas).loc[:,["Name","ID","Follow","Follower","TweetCount","Description"]]
 
 #ファイル出力
