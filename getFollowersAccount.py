@@ -11,10 +11,10 @@ auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
 auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 api = tweepy.API(auth,wait_on_rate_limit = True)
 
-user = input("「@ユーザーID」を入力してください：")
+#user = input("「@ユーザーID」を入力してください：")
 
 followerIDs = []
-for followerID in tweepy.Cursor(api.get_follower_ids, id=user).items():
+for followerID in tweepy.Cursor(api.get_follower_ids, id="@以降のユーザーIDを入力").items():
     followerIDs.append(followerID)
 
 #print(len(followerIDs))

@@ -12,7 +12,7 @@ api = tweepy.API(auth,wait_on_rate_limit = True)
 #followerIDs = api.get_follower_ids(id="tech_comi")
 #print(len(followerIDs))
 followerIDs = []
-for followerID in tweepy.Cursor(api.get_follower_ids, id="tech_comi").items():
+for followerID in tweepy.Cursor(api.get_follower_ids, id="_shutanaka").items():
     followerIDs.append(followerID)
 
 print(len(followerIDs))
